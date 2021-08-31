@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 
     <head>
@@ -12,18 +11,35 @@
     </head>
     
     <body >
-        <style>
-        body{
-            max-width: 1180px;
-            width: 98%;
-            margin: 0px auto;
-            text-align: left;
-        }
-        </style>
-        <h1> Enter your distric ... </h1>
-        <label for="distric">Enter your distric:</label>
-        <input type="text" id="distric_data" name="distric"><br><br>
-    
+        <script>$(function () {fillDistrictsTable();});
+
+                function fillDistrictsTable() {
+                    $.ajax({
+                        url:"districts.php",    //methanata path eka denna ona hariyata
+                        type: "post",    ,
+                        dataType: 'json',
+                        data: {},
+                        success:function(result){
+                        console.log(result);
+                        }
+                    });
+                    // methana ajax call eka
+                    // result eka aragena
+                    // data table ekata gahanawa
+                }   
+                        
+        </script>
+        
+        <table id="districtsTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>District</th>
+                </tr>
+            </thead>
+                <tbody></tbody>
+        </table>
+     
     </body>
     
 </html>
