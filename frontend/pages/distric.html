@@ -13,7 +13,23 @@
     
     <body >
         <script>
+            var districtsTable;
+
             $(function () {
+                districtsTable = $('#districtsTable').DataTable({
+                    "sPaginationType": "full_numbers",
+                    "bDestroy": true,
+                    'bAutoWidth': false,
+                    responsive: true,
+                    "columnDefs": [
+                        {className: "text-center", "targets": [3]},
+                        {className: "action-btn-column", "targets": [5]},
+                        {width: "150px", "targets": [0, 1, 2, 3, 4]},
+                        {"orderable": false, "targets": [5]},
+                        {sortable: false, "targets": [5]}
+                    ]
+                });
+
                 fillDistrictsTable();
             });
 
@@ -24,7 +40,19 @@
                     dataType: 'json',
                     data: {},
                     success:function(result){
-                        console.log(JSON.parse(result));
+                        // console.log(JSON.parse(result));
+                    var rows = [];
+                    districtsTable.clear().draw();
+                    for (var b in result) {
+                       
+                        districtsTable.row.add([
+                            result[b].id,
+                            result[b].name
+                        ]).node().id = result[b].Id;
+                        districtsTable.draw();
+                    }
+
+
                         console.log(result);
                     }
                 });
