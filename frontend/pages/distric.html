@@ -2,10 +2,11 @@
 
     <head>
         <title>all distric list</title>
-        <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico" />
+        <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico" />       
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.0/css/jquery.dataTables.css">
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.js"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+ 
 
         
     </head>
@@ -16,20 +17,21 @@
                 fillDistrictsTable();
             });
 
-                function fillDistrictsTable() {
-                    $.ajax({
-                        url:"districts.php",    //methanata path eka denna ona hariyata
-                        type: "post",    ,
-                        dataType: 'json',
-                        data: {},
-                        success:function(result){
+            function fillDistrictsTable() {
+                $.ajax({
+                    url:"../../backend/actions/districts.php",    //methanata path eka denna ona hariyata
+                    type: "post",    
+                    dataType: 'json',
+                    data: {},
+                    success:function(result){
+                        console.log(JSON.parse(result));
                         console.log(result);
-                        }
-                    });
-                    // methana ajax call eka
-                    // result eka aragena
-                    // data table ekata gahanawa
-                }   
+                    }
+                });
+                // methana ajax call eka
+                // result eka aragena
+                // data table ekata gahanawa
+            }   
                         
         </script>
         
@@ -40,7 +42,7 @@
                     <th>District</th>
                 </tr>
             </thead>
-                <tbody></tbody>
+            <tbody></tbody>
         </table>
      
     </body>
