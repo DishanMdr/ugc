@@ -1,63 +1,61 @@
 <html>
 
-    <head>
-        <title>all distric list</title>
-        <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico" />       
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.0/css/jquery.dataTables.css">
-        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.js"></script>
- 
+<head>
+    <title>all distric list</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico" />       
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.0/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.js"></script>
 
-        
-    </head>
-    
-    <body >
-        <script>
-            var districtsTable;
 
-            $(function () {
-                districtsTable = $('#districtsTable').DataTable({
-                    "sPaginationType": "full_numbers",
-                    "bDestroy": true,
-                    'bAutoWidth': false,
-                    responsive: true,
-                    "columnDefs": [
-                        {className: "text-center", "targets": [1]},
-                        {"orderable": false, "targets": [1]}
-                    ]
-                });
 
-                fillDistrictsTable();
+</head>
+
+<body >
+    <script>
+        var districtsTable;
+
+        $(function () {
+            districtsTable = $('#districtsTable').DataTable({
+                "sPaginationType": "full_numbers",
+                "bDestroy": true,
+                'bAutoWidth': false,
+                responsive: true,
+                "columnDefs": [
+                {className: "text-center", "targets": [1]},
+                {"orderable": false, "targets": [1]}
+                ]
             });
 
-            function fillDistrictsTable() {
-                $.ajax({
+            fillDistrictsTable();
+        });
+
+        function fillDistrictsTable() {
+            $.ajax({
                     url:"../../backend/actions/districts.php",    //methanata path eka denna ona hariyata
                     type: "post",    
                     dataType: 'json',
                     data: {},
                     success:function(result){
-                        // console.log(JSON.parse(result));
-                    var rows = [];
-                    districtsTable.clear().draw();
-                    for (var b in result) {
-                       
-                        districtsTable.row.add([
-                            result[b].id,
-                            result[b].name
-                        ]).node().id = result[b].Id;
-                        districtsTable.draw();
-                    }
-
-
                         console.log(result);
+                        var res = JSON.parse(result);
+                        console.log(res);
+                        var rows = [];
+                        districtsTable.clear().draw();
+                        for (var b in res) {
+                            districtsTable.row.add([
+                                res[b].id,
+                                res[b].name
+                                ]).node().id = res[b].id;
+                            districtsTable.draw();
+                        }
                     }
                 });
                 // methana ajax call eka
                 // result eka aragena
                 // data table ekata gahanawa
             }   
-                        
+
         </script>
         
         <table id="districtsTable">
@@ -69,7 +67,7 @@
             </thead>
             <tbody></tbody>
         </table>
-     
+
     </body>
     
-</html>
+    </html>
